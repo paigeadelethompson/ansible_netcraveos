@@ -1,3 +1,9 @@
+The world's first most hackable single-board server should also be the most secure; ansible-zimaboard makes easy work of that. 
+
+About Zimaboard: https://www.zimaboard.com
+
+CasaOS: https://www.casaos.io
+
 Quickstart
 ------------
 
