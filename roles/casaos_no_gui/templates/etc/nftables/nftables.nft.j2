@@ -1,1 +1,737 @@
-#
+table inet filter { # handle 162
+
+	map igmp_in4 { # handle 33
+		typeof ip saddr . ip daddr . igmp type : verdict
+		flags interval
+		elements = { 169.254.0.0/16 . 224.0.0.0/4 . membership-query : accept,
+			     10.0.0.0/8 . 224.0.0.0/4 . membership-query : accept,
+			     172.16.0.0/12 . 224.0.0.0/4 . membership-query : accept,
+			     192.168.0.0/16 . 224.0.0.0/4 . membership-query : accept,
+			     169.254.0.0/16 . 224.0.0.0/4 . membership-report-v2 : accept,
+			     10.0.0.0/8 . 224.0.0.0/4 . membership-report-v2 : accept,
+			     172.16.0.0/12 . 224.0.0.0/4 . membership-report-v2 : accept,
+			     192.168.0.0/16 . 224.0.0.0/4 . membership-report-v2 : accept }
+	}
+
+	map igmp_out4 { # handle 34
+		typeof ip saddr . ip daddr . igmp type : verdict
+		flags interval
+		elements = { 169.254.0.0/16 . 224.0.0.0/4 . membership-report-v2 : accept,
+			     10.0.0.0/8 . 224.0.0.0/4 . membership-report-v2 : accept,
+			     172.16.0.0/12 . 224.0.0.0/4 . membership-report-v2 : accept,
+			     192.168.0.0/16 . 224.0.0.0/4 . membership-report-v2 : accept }
+	}
+
+	map udp_broadcast_out { # handle 35
+		typeof ip saddr . ip daddr . udp dport : verdict
+		flags interval
+		elements = { 169.254.0.0/16 . 169.254.0.0/16 . 138 : accept,
+			     10.0.0.0/8 . 10.0.0.0/8 . 138 : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . 138 : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . 138 : accept }
+	}
+
+	map udp_broadcast_in { # handle 36
+		typeof ip saddr . ip daddr . udp dport : verdict
+		flags interval
+		elements = { 169.254.0.0/16 . 240.0.0.0/4 . 1900 : accept,
+			     10.0.0.0/8 . 240.0.0.0/4 . 1900 : accept,
+			     192.168.0.0/16 . 240.0.0.0/4 . 1900 : accept,
+			     172.16.0.0/12 . 240.0.0.0/4 . 1900 : accept,
+			     169.254.0.0/16 . 169.254.0.0/16 . 137 : accept,
+			     10.0.0.0/8 . 10.0.0.0/8 . 137 : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . 137 : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . 137 : accept,
+			     169.254.0.0/16 . 169.254.0.0/16 . 138 : accept,
+			     10.0.0.0/8 . 10.0.0.0/8 . 138 : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . 138 : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . 138 : accept }
+	}
+
+	map udp_multicast_out4 { # handle 37
+		typeof ip saddr . ip daddr . udp dport : verdict
+		flags interval
+		elements = { 192.168.0.0/16 . 224.0.0.0/4 . 5353 : accept,
+			     10.0.0.0/8 . 224.0.0.0/4 . 5353 : accept,
+			     172.16.0.0/12 . 224.0.0.0/4 . 5353 : accept }
+	}
+
+	map udp_multicast_in4 { # handle 38
+		typeof ip saddr . ip daddr . udp dport : verdict
+		flags interval
+		elements = { 169.254.0.0/16 . 224.0.0.0/4 . 5353 : accept,
+			     192.168.0.0/16 . 224.0.0.0/4 . 5353 : accept,
+			     10.0.0.0/8 . 224.0.0.0/4 . 5353 : accept,
+			     172.16.0.0/12 . 224.0.0.0/4 . 5353 : accept,
+			     192.168.0.0/16 . 224.0.0.0/4 . 1900 : accept,
+			     10.0.0.0/8 . 224.0.0.0/4 . 1900 : accept,
+			     172.16.0.0/12 . 224.0.0.0/4 . 1900 : accept,
+			     192.168.0.0/16 . 224.0.0.0/4 . 1902 : accept,
+			     10.0.0.0/8 . 224.0.0.0/4 . 1902 : accept,
+			     172.16.0.0/12 . 224.0.0.0/4 . 1902 : accept,
+			     192.168.0.0/16 . 240.0.0.0/4 . 1900 : accept,
+			     10.0.0.0/8 . 240.0.0.0/4 . 1900 : accept,
+			     172.16.0.0/12 . 240.0.0.0/4 . 1900 : accept }
+	}
+
+	map udp_multicast_out6 { # handle 39
+		typeof ip6 saddr . ip6 daddr . udp dport : verdict
+		flags interval
+		elements = { fe80::/10 . ff00::/8 . 5353 : accept,
+			     fc00::/7 . ff00::/8 . 5353 : accept }
+	}
+
+	map udp_multicast_in6 { # handle 40
+		typeof ip6 saddr . ip6 daddr . udp dport : verdict
+		flags interval
+		elements = { fe80::/10 . ff00::/8 . 5353 : accept,
+			     fc00::/7 . ff00::/8 . 5353 : accept }
+	}
+
+	map drop_hosts4 { # handle 41
+		type ipv4_addr : verdict
+		flags interval
+	}
+
+	set icmp_egress_meter4 { # handle 42
+		type ipv4_addr
+		size 8
+		flags dynamic,timeout
+	}
+
+	set icmp_egress_meter6 { # handle 43
+		type ipv6_addr
+		size 8
+		flags dynamic,timeout
+	}
+
+	map drop_bogons4 { # handle 44
+		type ipv4_addr : verdict
+		flags interval
+		elements = { 0.0.0.0/8 : jump bogon, 10.0.0.0/8 : continue,
+			     100.64.0.0/17 : continue, 100.64.128.0/17 : jump bogon,
+			     100.65.0.0/16 : jump bogon, 100.66.0.0/15 : jump bogon,
+			     100.68.0.0/15 : jump bogon, 100.70.0.0/15 : jump bogon,
+			     100.72.0.0/15 : jump bogon, 100.74.0.0/15 : jump bogon,
+			     100.76.0.0/15 : jump bogon, 100.78.0.0/15 : jump bogon,
+			     100.80.0.0/15 : jump bogon, 100.82.0.0/15 : jump bogon,
+			     100.84.0.0/15 : jump bogon, 100.86.0.0/15 : jump bogon,
+			     100.88.0.0/15 : jump bogon, 100.90.0.0/15 : jump bogon,
+			     100.92.0.0/15 : jump bogon, 100.94.0.0/15 : jump bogon,
+			     100.96.0.0/11 : jump bogon, 127.0.0.0/8 : jump bogon,
+			     169.254.0.0/16 : continue, 172.16.0.0/12 : continue,
+			     192.0.0.0/24 : jump bogon, 192.0.2.0/24 : jump bogon,
+			     192.168.0.0/16 : continue, 198.18.0.0/15 : jump bogon,
+			     198.51.100.0/24 : jump bogon, 203.0.113.0/24 : jump bogon,
+			     224.0.0.0/4 : continue, 240.0.0.0/4 : continue }
+	}
+
+	set local_networks { # handle 45
+		type ipv4_addr
+		flags interval
+		elements = { 10.0.0.0/8, 100.64.0.0/17,
+			     169.254.0.0/16, 172.16.0.0/12,
+			     192.168.0.0/16 }
+	}
+
+	map drop_bogons6 { # handle 46
+		type ipv6_addr : verdict
+		flags interval
+		elements = { ::/96 : jump bogon,
+			     ::ffff:0.0.0.0/96 : jump bogon,
+			     100::/64 : jump bogon,
+			     2001::/40 : jump bogon,
+			     2001:0:a00::/40 : jump bogon,
+			     2001:0:7f00::/40 : jump bogon,
+			     2001:0:a9fe::/48 : jump bogon,
+			     2001:0:ac10::/44 : jump bogon,
+			     2001:0:c000::/56 : jump bogon,
+			     2001:0:c000:200::/56 : jump bogon,
+			     2001:0:c0a8::/48 : jump bogon,
+			     2001:0:c612::/47 : jump bogon,
+			     2001:0:c633:6400::/56 : jump bogon,
+			     2001:0:cb00:7100::/56 : jump bogon,
+			     2001:0:e000::/36 : jump bogon,
+			     2001:0:f000::/36 : jump bogon,
+			     2001:10::/28 : jump bogon,
+			     2001:db8::/32 : jump bogon,
+			     2002::/24 : jump bogon,
+			     2002:a00::/24 : jump bogon,
+			     2002:7f00::/24 : jump bogon,
+			     2002:a9fe::/32 : jump bogon,
+			     2002:ac10::/28 : jump bogon,
+			     2002:c000::/40 : jump bogon,
+			     2002:c000:200::/40 : jump bogon,
+			     2002:c0a8::/32 : jump bogon,
+			     2002:c612::/31 : jump bogon,
+			     2002:c633:6400::/40 : jump bogon,
+			     2002:cb00:7100::/40 : jump bogon,
+			     2002:e000::/20 : jump bogon,
+			     2002:f000::/20 : jump bogon,
+			     fc00::/7 : continue,
+			     fe80::/10 : continue,
+			     fec0::/10 : jump bogon,
+			     ff00::/8 : continue }
+	}
+
+	map reject_or_drop_port4 { # handle 47
+		typeof ip saddr . ip daddr : verdict
+		flags interval
+		elements = { 10.0.0.0/8 . 10.0.0.0/8 : jump reject_with_icmp_port_unreachable,
+			     172.16.0.0/12 . 172.16.0.0/12 : jump reject_with_icmp_port_unreachable,
+			     192.168.0.0/16 . 192.168.0.0/16 : jump reject_with_icmp_port_unreachable,
+			     169.254.0.0/16 . 169.254.0.0/16 : jump reject_with_icmp_port_unreachable,
+			     0.0.0.0/0 . 0.0.0.0/0 : jump reject_with_icmp_port_unreachable_metered }
+	}
+
+	map reject_or_drop_port6 { # handle 48
+		typeof ip6 saddr . ip6 daddr : verdict
+		flags interval
+		elements = { fe80::/10 . fe80::/10 : jump reject_with_icmp_port_unreachable,
+			     fc00::/7 . fc00::/7 : jump reject_with_icmp_port_unreachable,
+			     ::/0 . ::/0 : jump reject_with_icmp_port_unreachable_metered }
+	}
+
+	map icmp_types_in4 { # handle 49
+		typeof ip saddr . ip daddr . icmp type : verdict
+		flags interval
+		elements = { 0.0.0.0/0 . 0.0.0.0/0 . echo-request : accept,
+			     0.0.0.0/0 . 0.0.0.0/0 . echo-reply : accept,
+			     0.0.0.0/0 . 0.0.0.0/0 . destination-unreachable : accept }
+	}
+
+	map icmp_types_in6 { # handle 50
+		typeof ip6 saddr . ip6 daddr . icmpv6 type : verdict
+		flags interval
+		elements = { fe80::/10 . fe80::/10 . echo-request : accept,
+			     fe80::/10 . ff00::/8 . echo-request : accept,
+			     fc00::/7 . fc00::/7 . echo-request : accept,
+			     fe80::/10 . fe80::/10 . echo-reply : accept,
+			     fe80::/10 . ff00::/8 . echo-reply : accept,
+			     fc00::/7 . fc00::/7 . echo-reply : accept,
+			     fe80::/10 . fe80::/10 . nd-neighbor-solicit : accept,
+			     fc00::/7 . ff00::/8 . nd-neighbor-solicit : accept,
+			     fc00::/7 . fc00::/7 . nd-neighbor-solicit : accept,
+			     fe80::/10 . ff00::/8 . nd-neighbor-solicit : accept,
+			     fc00::/7 . fc00::/7 . nd-neighbor-advert : accept,
+			     fe80::/10 . fe80::/10 . nd-neighbor-advert : accept,
+			     fe80::/10 . ff00::/8 . nd-router-advert : accept,
+			     fe80::/10 . fe80::/10 . nd-router-advert : accept }
+	}
+
+	map tcp_unicast_in4 { # handle 51
+		typeof ip saddr . ip daddr . tcp dport : verdict
+		flags interval
+		elements = { 0.0.0.0/0 . 0.0.0.0/0 . 22 : accept }
+	}
+
+	map tcp_unicast_in6 { # handle 52
+		typeof ip6 saddr . ip6 daddr . tcp dport : verdict
+		flags interval
+		elements = { ::/0 . ::/0 . 22 : accept }
+	}
+
+	map udp_unicast_in4 { # handle 53
+		typeof ip saddr . ip daddr . udp dport : verdict
+		flags interval
+		elements = { 169.254.0.0/16 . 169.254.0.0/16 . 68 : accept,
+			     10.0.0.0/8 . 10.0.0.0/8 . 68 : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . 68 : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . 68 : accept,
+			     169.254.0.0/16 . 169.254.0.0/16 . 137 : accept,
+			     10.0.0.0/8 . 10.0.0.0/8 . 137 : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . 137 : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . 137 : accept }
+	}
+
+	map udp_unicast_in6 { # handle 54
+		typeof ip6 saddr . ip6 daddr . udp dport : verdict
+		flags interval
+		elements = { fe80::/10 . ff00::/8 . 546 : accept }
+	}
+
+	map default_forward4 { # handle 55
+		typeof ip saddr . ip daddr . ct state : verdict
+		flags interval
+		elements = { 169.254.0.0/16 . 0.0.0.0/0 . new : jump wont_forward,
+			     0.0.0.0/0 . 169.254.0.0/16 . new : jump wont_forward,
+			     10.0.0.0/8 . 172.16.0.0/12 . new : jump reject_with_icmp_no_route,
+			     10.0.0.0/8 . 192.168.0.0/16 . new : jump reject_with_icmp_no_route,
+			     172.16.0.0/12 . 10.0.0.0/8 . new : jump reject_with_icmp_no_route,
+			     172.16.0.0/12 . 192.168.0.0/16 . new : jump reject_with_icmp_no_route,
+			     192.168.0.0/16 . 10.0.0.0/8 . new : jump reject_with_icmp_no_route,
+			     192.168.0.0/16 . 172.16.0.0/12 . new : jump reject_with_icmp_no_route,
+			     10.0.0.0/8 . 10.0.0.0/8 . new : continue,
+			     10.0.0.0/8 . 10.0.0.0/8 . established : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . new : continue,
+			     172.16.0.0/12 . 172.16.0.0/12 . established : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . new : continue,
+			     192.168.0.0/16 . 192.168.0.0/16 . established : accept,
+			     10.0.0.0/8 . 0.0.0.0/0 . new : continue,
+			     172.16.0.0/12 . 0.0.0.0/0 . new : continue,
+			     192.168.0.0/16 . 0.0.0.0/0 . new : continue,
+			     0.0.0.0/0 . 10.0.0.0/8 . established : accept,
+			     0.0.0.0/0 . 172.16.0.0/12 . established : accept,
+			     0.0.0.0/0 . 192.168.0.0/16 . established : accept }
+	}
+
+	map default_forward6 { # handle 56
+		typeof ip6 saddr . ip6 daddr . ct state : verdict
+		flags interval
+		elements = { fe80::/10 . ::/0 . new : jump wont_forward,
+			     ::/0 . fe80::/10 . new : jump wont_forward,
+			     fc00::/7 . fc00::/7 . new : continue,
+			     fc00::/7 . fc00::/7 . established : accept }
+	}
+
+	map icmp_types_out4 { # handle 57
+		typeof ip saddr . ip daddr . icmp type : verdict
+		flags interval
+		elements = { 10.0.0.0/8 . 0.0.0.0/0 . echo-request : accept,
+			     185.193.127.59 . 0.0.0.0/0 . echo-request : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . echo-request : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . echo-request : accept,
+			     10.0.0.0/8 . 10.0.0.0/8 . echo-reply : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . echo-reply : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . echo-reply : accept,
+			     10.0.0.0/8 . 10.0.0.0/8 . destination-unreachable : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . destination-unreachable : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . destination-unreachable : accept,
+			     0.0.0.0/0 . 0.0.0.0/0 . echo-reply : jump icmp_echo_reply_rate_limit }
+	}
+
+	map icmp_types_out6 { # handle 58
+		typeof ip6 saddr . ip6 daddr . icmpv6 type : verdict
+		flags interval
+		elements = { fe80::/10 . ff00::/8 . echo-request : accept,
+			     fc00::/7 . fc00::/7 . echo-reply : accept,
+			     2000::/3 . ::/0 . echo-request : accept,
+			     2000::/3 . ::/0 . echo-reply : jump icmp_echo_reply_rate_limit,
+			     fc00::/7 . fc00::/7 . nd-neighbor-advert : accept,
+			     fe80::/10 . fe80::/10 . nd-neighbor-advert : accept,
+			     fc00::/7 . ff00::/8 . nd-neighbor-solicit : accept,
+			     2000::/3 . ff00::/8 . nd-neighbor-solicit : accept,
+			     fe80::/10 . fc00::/7 . nd-neighbor-solicit : accept,
+			     fe80::/10 . fe80::/10 . nd-neighbor-solicit : accept,
+			     fe80::/10 . ff00::/8 . nd-router-solicit : accept }
+	}
+
+	map tcp_unicast_out4 { # handle 59
+		typeof ip saddr . ip daddr . tcp dport : verdict
+		flags interval
+		elements = { 10.0.0.0/8 . 0.0.0.0/0 . 22 : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . 22 : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . 22 : accept,
+			     10.0.0.0/8 . 0.0.0.0/0 . 443 : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . 443 : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . 443 : accept,
+			     10.0.0.0/8 . 0.0.0.0/0 . 853 : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . 853 : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . 853 : accept,
+			     10.0.0.0/8 . 0.0.0.0/0 . 4460 : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . 4460 : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . 4460 : accept,
+			     10.0.0.0/8 . 0.0.0.0/0 . 5349 : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . 5349 : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . 5349 : accept }
+	}
+
+	map tcp_unicast_out6 { # handle 60
+		typeof ip6 saddr . ip6 daddr . tcp dport : verdict
+		flags interval
+		elements = { fc00::/7 . fc00::/7 . 443 : accept,
+			     fc00::/7 . fc00::/7 . 853 : accept,
+			     fc00::/7 . fc00::/7 . 4460 : accept,
+			     fc00::/7 . fc00::/7 . 5349 : accept,
+			     2000::/3 . 2000::/3 . 443 : accept,
+			     2000::/3 . 2000::/3 . 853 : accept,
+			     2000::/3 . 2000::/3 . 4460 : accept,
+			     2000::/3 . 2000::/3 . 5349 : accept }
+	}
+
+	map udp_unicast_out4 { # handle 61
+		typeof ip saddr . ip daddr . udp dport : verdict
+		flags interval
+		elements = { 10.0.0.0/8 . 10.0.0.0/8 . 67 : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . 67 : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . 67 : accept,
+			     169.254.0.0/16 . 169.254.0.0/16 . 67 : accept,
+			     10.0.0.0/8 . 10.0.0.0/8 . 53 : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . 53 : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . 53 : accept,
+			     10.0.0.0/8 . 0.0.0.0/0 . 443 : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . 443 : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . 443 : accept,
+			     10.0.0.0/8 . 0.0.0.0/0 . 1194 : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . 1194 : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . 1194 : accept,
+			     0.0.0.0/0 . 162.159.200.1 . 123 : accept,
+			     0.0.0.0/0 . 162.159.200.123 . 123 : accept,
+			     10.0.0.0/8 . 10.0.0.0/8 . 123 : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . 123 : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . 123 : accept,
+			     169.254.0.0/16 . 169.254.0.0/16 . 5353 : accept,
+			     169.254.0.0/16 . 224.0.0.0/4 . 5353 : accept,
+			     10.0.0.0/8 . 224.0.0.0/4 . 5353 : accept,
+			     192.168.0.0/16 . 224.0.0.0/4 . 5353 : accept,
+			     172.16.0.0/12 . 224.0.0.0/4 . 5353 : accept,
+			     169.254.0.0/16 . 169.254.0.0/16 . 137 : accept,
+			     10.0.0.0/8 . 10.0.0.0/8 . 138 : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . 137 : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . 137 : accept,
+			     169.254.0.0/16 . 169.254.0.0/16 . 138 : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . 138 : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . 138 : accept }
+	}
+
+	map udp_unicast_out6 { # handle 62
+		typeof ip6 saddr . ip6 daddr . udp dport : verdict
+		flags interval
+		elements = { fe80::/10 . ff00::/8 . 547 : accept,
+			     2000::/3 . ::/0 . 443 : accept,
+			     fe80::/10 . ff00::/8 . 5353 : accept,
+			     fc00::/7 . ff00::/8 . 5353 : accept }
+	}
+
+	map icmp_types_forward4 { # handle 63
+		typeof ip saddr . ip daddr . icmp type : verdict
+		flags interval
+		elements = { 10.0.0.0/8 . 0.0.0.0/0 . echo-request : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . echo-request : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . echo-request : accept,
+			     10.0.0.0/8 . 10.0.0.0/8 . echo-reply : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . echo-reply : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . echo-reply : accept,
+			     10.0.0.0/8 . 10.0.0.0/8 . destination-unreachable : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . destination-unreachable : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . destination-unreachable : accept,
+			     0.0.0.0/0 . 0.0.0.0/0 . echo-reply : jump icmp_echo_reply_rate_limit }
+	}
+
+	map icmp_types_forward6 { # handle 64
+		typeof ip6 saddr . ip6 daddr . icmpv6 type : verdict
+		flags interval
+		elements = { fe80::/10 . ff00::/8 . echo-request : accept,
+			     fc00::/7 . fc00::/7 . echo-reply : accept,
+			     2000::/3 . ::/0 . echo-reply : jump icmp_echo_reply_rate_limit }
+	}
+
+	map forward_all4 { # handle 65
+		typeof ip saddr . ip daddr : verdict
+		flags interval
+	}
+
+	map forward_all6 { # handle 66
+		typeof ip6 saddr . ip6 daddr : verdict
+		flags interval
+	}
+
+	map tcp_ports_forward4 { # handle 67
+		typeof ip saddr . ip daddr . tcp dport : verdict
+		flags interval
+		elements = { 10.0.0.0/8 . 10.0.0.0/8 . 53 : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . 53 : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . 53 : accept,
+			     10.0.0.0/8 . 10.0.0.0/8 . 80 : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . 80 : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . 80 : accept,
+			     10.0.0.0/8 . 0.0.0.0/0 . 22 : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . 22 : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . 22 : accept,
+			     10.0.0.0/8 . 0.0.0.0/0 . 443 : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . 443 : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . 443 : accept,
+			     10.0.0.0/8 . 0.0.0.0/0 . 853 : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . 853 : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . 853 : accept,
+			     10.0.0.0/8 . 0.0.0.0/0 . 4460 : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . 4460 : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . 4460 : accept,
+			     10.0.0.0/8 . 0.0.0.0/0 . 5349 : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . 5349 : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . 5349 : accept }
+	}
+
+	map tcp_ports_forward6 { # handle 68
+		typeof ip6 saddr . ip6 daddr . tcp dport : verdict
+		flags interval
+		elements = { fc00::/7 . fc00::/7 . 80 : accept,
+			     fc00::/7 . fc00::/7 . 443 : accept,
+			     fc00::/7 . fc00::/7 . 853 : accept,
+			     fc00::/7 . fc00::/7 . 4460 : accept,
+			     fc00::/7 . fc00::/7 . 5349 : accept,
+			     2000::/3 . 2000::/3 . 443 : accept,
+			     2000::/3 . 2000::/3 . 853 : accept,
+			     2000::/3 . 2000::/3 . 4460 : accept,
+			     2000::/3 . 2000::/3 . 5349 : accept }
+	}
+
+	map udp_ports_forward4 { # handle 69
+		typeof ip saddr . ip daddr . udp dport : verdict
+		flags interval
+		elements = { 10.0.0.0/8 . 10.0.0.0/8 . 53 : accept,
+			     172.16.0.0/12 . 172.16.0.0/12 . 53 : accept,
+			     192.168.0.0/16 . 192.168.0.0/16 . 53 : accept,
+			     10.0.0.0/8 . 0.0.0.0/0 . 443 : accept,
+			     172.16.0.0/12 . 0.0.0.0/0 . 443 : accept,
+			     192.168.0.0/16 . 0.0.0.0/0 . 443 : accept }
+	}
+
+	map udp_ports_forward6 { # handle 70
+		typeof ip6 saddr . ip6 daddr . udp dport : verdict
+		flags interval
+		elements = { 2000::/3 . ::/0 . 443 : accept }
+	}
+
+	map tcp_ports_nat_forward4 { # handle 71
+		type inet_service : ipv4_addr
+	}
+
+	map udp_ports_nat_forward4 { # handle 72
+		type inet_service : ipv4_addr
+	}
+
+	map masquerade_networks4 { # handle 73
+		typeof oif . ip saddr : verdict
+		flags interval
+	}
+
+	chain input { # handle 1
+		type filter hook input priority filter; policy drop;
+		meta iiftype vmap { loopback : accept } # handle 84
+		ip saddr vmap @drop_bogons4 # handle 85
+		ip daddr vmap @drop_bogons4 # handle 86
+		ip6 saddr vmap @drop_bogons6 # handle 87
+		ip6 daddr vmap @drop_bogons6 # handle 88
+		ip saddr vmap @drop_hosts4 # handle 89
+		meta iiftype vmap { ether : jump ether_in } # handle 90
+		log prefix "input" group 1 # handle 91
+		counter # handle 92
+	}
+
+	chain forward { # handle 2
+		type filter hook forward priority filter; policy drop;
+		ip saddr vmap @drop_bogons4 # handle 93
+		ip daddr vmap @drop_bogons4 # handle 94
+		ip6 saddr vmap @drop_bogons6 # handle 95
+		ip6 daddr vmap @drop_bogons6 # handle 96
+		ip daddr vmap @drop_hosts4 # handle 97
+		meta oiftype vmap { ether : jump ether_forward } # handle 98
+		log prefix "forward" group 1 # handle 99
+		counter # handle 100
+	}
+
+	chain output { # handle 3
+		type filter hook output priority filter; policy drop;
+		meta oiftype vmap { loopback : accept } # handle 101
+		ip saddr vmap @drop_bogons4 # handle 102
+		ip daddr vmap @drop_bogons4 # handle 103
+		ip6 saddr vmap @drop_bogons6 # handle 104
+		ip6 daddr vmap @drop_bogons6 # handle 105
+		ip daddr vmap @drop_hosts4 # handle 106
+		meta oiftype vmap { ether : jump ether_out } # handle 107
+		log prefix "output" group 1 # handle 108
+		counter # handle 109
+	}
+
+	chain prerouting { # handle 4
+		type nat hook prerouting priority 100; policy accept;
+		ip saddr @local_networks return # handle 110
+		ip protocol tcp dnat ip to tcp dport map @tcp_ports_nat_forward4 # handle 111
+		ip protocol udp dnat ip to udp dport map @udp_ports_nat_forward4 # handle 112
+	}
+
+	chain postrouting { # handle 5
+		type nat hook postrouting priority srcnat; policy accept;
+		oif . ip saddr vmap @masquerade_networks4 # handle 113
+	}
+
+	chain masq { # handle 6
+		ip daddr vmap @drop_bogons4 # handle 114
+		ip daddr @local_networks return # handle 115
+		counter masquerade # handle 116
+	}
+
+	chain ether_in { # handle 7
+		ip protocol vmap { icmp : jump icmp_in, igmp : jump igmp_in, tcp : jump tcp_in, udp : jump udp_in } # handle 117
+		ip6 nexthdr vmap { tcp : jump tcp_in, udp : jump udp_in, ipv6-icmp : jump icmp_in } # handle 118
+		log prefix "ether_in" group 1 # handle 119
+		counter drop # handle 120
+	}
+
+	chain ether_out { # handle 8
+		ip protocol vmap { icmp : jump icmp_out, igmp : jump igmp_out, tcp : jump tcp_out, udp : jump udp_out } # handle 121
+		ip6 nexthdr vmap { tcp : jump tcp_out, udp : jump udp_out, ipv6-icmp : jump icmp_out } # handle 122
+		log prefix "ether_out" group 1 # handle 123
+		counter drop # handle 124
+	}
+
+	chain ether_forward { # handle 9
+		ip saddr . ip daddr . ct state vmap @default_forward4 # handle 125
+		ip6 saddr . ip6 daddr . ct state vmap @default_forward6 # handle 126
+		ip protocol vmap { icmp : jump icmp_forward, tcp : jump tcp_forward, udp : jump udp_forward } # handle 127
+		log prefix "ether_forward" group 1 # handle 128
+		counter drop # handle 129
+	}
+
+	chain igmp_in { # handle 10
+		meta pkttype multicast ip saddr . ip daddr . igmp type vmap @igmp_in4 # handle 130
+		log prefix "igmp_in" group 1 # handle 131
+		counter drop # handle 132
+	}
+
+	chain igmp_out { # handle 11
+		ip saddr . ip daddr . igmp type vmap @igmp_out4 # handle 133
+		log prefix "igmp_out" group 1 # handle 134
+		counter drop # handle 135
+	}
+
+	chain icmp_in { # handle 12
+		ip saddr . ip daddr . icmp type vmap @icmp_types_in4 # handle 136
+		ip6 saddr . ip6 daddr . icmpv6 type vmap @icmp_types_in6 # handle 137
+		log prefix "icmp_in" group 1 # handle 138
+		counter drop # handle 139
+	}
+
+	chain icmp_out { # handle 13
+		ip saddr . ip daddr . icmp type vmap @icmp_types_out4 # handle 140
+		ip6 saddr . ip6 daddr . icmpv6 type vmap @icmp_types_out6 # handle 141
+		log prefix "icmp_out" group 1 # handle 142
+		counter drop # handle 143
+	}
+
+	chain icmp_forward { # handle 14
+		ip saddr . ip daddr . icmp type vmap @icmp_types_forward4 # handle 144
+		ip6 saddr . ip6 daddr . icmpv6 type vmap @icmp_types_forward6 # handle 145
+		log prefix "icmp_forward" group 1 # handle 146
+		counter drop # handle 147
+	}
+
+	chain icmp_echo_reply_rate_limit { # handle 15
+		add @icmp_egress_meter4 { ip saddr timeout 4s limit rate 3/second } accept # handle 148
+		add @icmp_egress_meter6 { ip6 saddr timeout 4s limit rate 3/second } accept # handle 149
+		log prefix "icmp_echo_reply_rate_limit" group 1 # handle 150
+		counter drop # handle 151
+	}
+
+	chain reject_with_icmp_port_unreachable_metered { # handle 16
+		add @icmp_egress_meter4 { ip daddr timeout 4s limit rate 3/second } counter reject with icmp port-unreachable # handle 152
+		add @icmp_egress_meter6 { ip6 daddr timeout 4s limit rate 3/second } counter reject with icmpv6 port-unreachable # handle 153
+		log prefix "reject_with_icmp_port_unreachable_metered" group 1 # handle 154
+		counter drop # handle 155
+	}
+
+	chain reject_with_icmp_port_unreachable { # handle 17
+		counter reject # handle 156
+	}
+
+	chain reject_with_icmp_host_unreachable_metered { # handle 18
+		add @icmp_egress_meter4 { ip daddr timeout 4s limit rate 3/second } counter reject with icmpx host-unreachable # handle 157
+		add @icmp_egress_meter6 { ip6 daddr timeout 4s limit rate 3/second } counter reject with icmpx host-unreachable # handle 158
+		log prefix "reject_with_icmp_host_unreachable_metered" group 1 # handle 159
+		counter drop # handle 160
+	}
+
+	chain reject_with_icmp_host_unreachable { # handle 19
+		counter reject with icmpx host-unreachable # handle 161
+	}
+
+	chain reject_with_icmp_no_route_metered { # handle 20
+		add @icmp_egress_meter4 { ip daddr timeout 4s limit rate 3/second } counter reject with icmpx no-route # handle 162
+		add @icmp_egress_meter6 { ip6 daddr timeout 4s limit rate 3/second } counter reject with icmpx no-route # handle 163
+		log prefix "reject_with_icmp_no_route_metered" group 1 # handle 164
+		counter drop # handle 165
+	}
+
+	chain reject_with_icmp_no_route { # handle 21
+		counter reject with icmpx no-route # handle 166
+	}
+
+	chain reject_with_icmp_admin_prohibited_metered { # handle 22
+		add @icmp_egress_meter6 { ip6 daddr timeout 4s limit rate 3/second } counter reject with icmpx admin-prohibited # handle 167
+		log prefix "reject_with_icmp_admin_prohibited_metered" group 1 # handle 168
+		counter drop # handle 169
+	}
+
+	chain reject_with_icmp_admin_prohibited { # handle 23
+		add @icmp_egress_meter4 { ip daddr timeout 4s limit rate 3/second } counter reject with icmpx admin-prohibited # handle 170
+		counter reject with icmpx admin-prohibited # handle 171
+	}
+
+	chain tcp_in { # handle 24
+		meta pkttype unicast ct state established accept # handle 172
+		meta pkttype unicast ip saddr . ip daddr . tcp dport vmap @tcp_unicast_in4 # handle 173
+		meta pkttype unicast ip6 saddr . ip6 daddr . tcp dport vmap @tcp_unicast_in6 # handle 174
+		log prefix "tcp_in" group 1 # handle 175
+		counter drop # handle 176
+	}
+
+	chain tcp_out { # handle 25
+		meta pkttype unicast ct state established accept # handle 177
+		meta pkttype unicast ip saddr . ip daddr . tcp dport vmap @tcp_unicast_out4 # handle 178
+		meta pkttype unicast ip6 saddr . ip6 daddr . tcp dport vmap @tcp_unicast_out6 # handle 179
+		log prefix "tcp_out" group 1 # handle 180
+		counter drop # handle 181
+	}
+
+	chain tcp_forward { # handle 26
+		meta pkttype unicast ct state established accept # handle 182
+		meta pkttype unicast ip saddr . ip daddr vmap @forward_all4 # handle 183
+		meta pkttype unicast ip6 saddr . ip6 daddr vmap @forward_all6 # handle 184
+		meta pkttype unicast ip saddr . ip daddr . tcp dport vmap @tcp_ports_forward4 # handle 185
+		meta pkttype unicast ip6 saddr . ip6 daddr . tcp dport vmap @tcp_ports_forward6 # handle 186
+		log prefix "tcp_forward" group 1 # handle 187
+		counter drop # handle 188
+	}
+
+	chain udp_in { # handle 27
+		ct state established accept # handle 189
+		meta pkttype broadcast ip saddr . ip daddr . udp dport vmap @udp_broadcast_in # handle 190
+		meta pkttype unicast ip saddr . ip daddr . udp dport vmap @udp_unicast_in4 # handle 191
+		meta pkttype unicast ip6 saddr . ip6 daddr . udp dport vmap @udp_unicast_in6 # handle 192
+		meta pkttype multicast ip saddr . ip daddr . udp dport vmap @udp_multicast_in4 # handle 193
+		meta pkttype multicast ip6 saddr . ip6 daddr . udp dport vmap @udp_multicast_in6 # handle 194
+		meta pkttype unicast log prefix "udp_unicast_in" group 1 # handle 195
+		meta pkttype broadcast log prefix "udp_broadcast_in" group 1 # handle 196
+		meta pkttype multicast log prefix "udp_multicast_in" group 1 # handle 197
+		counter drop # handle 198
+	}
+
+	chain udp_out { # handle 28
+		ct state established accept # handle 199
+		meta pkttype broadcast ip saddr . ip daddr . udp dport vmap @udp_broadcast_out # handle 200
+		meta pkttype multicast ip saddr . ip daddr . udp dport vmap @udp_multicast_out4 # handle 201
+		meta pkttype multicast ip6 saddr . ip6 daddr . udp dport vmap @udp_multicast_out6 # handle 202
+		meta pkttype unicast ip saddr . ip daddr . udp dport vmap @udp_unicast_out4 # handle 203
+		meta pkttype unicast ip6 saddr . ip6 daddr . udp dport vmap @udp_unicast_out6 # handle 204
+		meta pkttype unicast log prefix "udp_unicast_out" group 1 # handle 205
+		meta pkttype broadcast log prefix "udp_broadcast_out" group 1 # handle 206
+		meta pkttype broadcast log prefix "udp_multicast_out" group 1 # handle 207
+		counter drop # handle 208
+	}
+
+	chain udp_forward { # handle 29
+		meta pkttype unicast ct state established accept # handle 209
+		meta pkttype unicast ip saddr . ip daddr vmap @forward_all4 # handle 210
+		meta pkttype unicast ip6 saddr . ip6 daddr vmap @forward_all6 # handle 211
+		meta pkttype unicast ip saddr . ip daddr . udp dport vmap @udp_ports_forward4 # handle 212
+		meta pkttype unicast ip6 saddr . ip6 daddr . udp dport vmap @udp_ports_forward6 # handle 213
+		log prefix "udp_forward" group 1 # handle 214
+		counter drop # handle 215
+	}
+
+	chain bogon { # handle 30
+		log prefix "bogon" group 1 # handle 216
+		counter drop # handle 217
+	}
+
+	chain wont_forward { # handle 31
+		log prefix "wont_forward" group 1 # handle 218
+		counter drop # handle 219
+	}
+
+	chain dropped_host { # handle 32
+		log prefix "blocked" group 1 # handle 220
+		counter drop # handle 221
+	}
+}
