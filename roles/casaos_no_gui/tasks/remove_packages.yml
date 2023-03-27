@@ -1,0 +1,19 @@
+- name: apt-get purge task-desktop
+  ansible.builtin.apt:
+    name: task-desktop
+    state: absent
+    purge: true
+
+- name: apt-get purge libx11-6
+  ansible.builtin.apt:
+    name: libx11-6
+    state: absent
+    purge: true
+    autoremove: true
+
+- name: apt purge libwayland-client0
+  ansible.builtin.apt:
+    name: libwayland-client0
+    state: absent
+    purge: true
+    autoremove: true
