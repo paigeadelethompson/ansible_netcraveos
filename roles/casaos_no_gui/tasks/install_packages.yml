@@ -38,3 +38,7 @@
       - libssl-dev 
       - dwarves 
       - bison
+      - cockpit-storaged
+      - cockpit-system
+      - cockpit-machines
+      - cockpit-pcp
