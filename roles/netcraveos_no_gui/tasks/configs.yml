@@ -194,32 +194,17 @@
     group: root
     mode: '0644'
 
-- name: /root/.ssh/authorized_keys2
-  copy:
-    src: "{{ role_path }}/files/.ssh/id_ed25519.pub"
-    dest: /root/.ssh/authorized_keys2
-
 - name: /home/debian/.ssh/authorized_keys2
   copy:
     src: "{{ role_path }}/files/.ssh/id_ed25519.pub"
     dest: /home/casaos/.ssh/authorized_keys2
 
-- name: spacemacs root
+- name: spacemacs debian user
   ansible.builtin.git:
     repo: https://github.com/syl20bnr/spacemacs
-    dest: /root/.emacs.d
+    dest: /home/debian/.emacs.d
 
-- name: spacemacs casaos
-  ansible.builtin.git:
-    repo: https://github.com/syl20bnr/spacemacs
-    dest: /home/casaos/.emacs.d
-
-- name: oh-my-zsh root
+- name: oh-my-zsh debian user
   ansible.builtin.git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
-    dest: /root/.oh-my-zsh
-
-- name: oh-my-zsh casaos
-  ansible.builtin.git:
-    repo: https://github.com/ohmyzsh/ohmyzsh.git
-    dest: /home/casaos/.oh-my-zsh
+    dest: /home/debian/.oh-my-zsh
