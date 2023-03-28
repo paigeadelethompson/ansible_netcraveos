@@ -3,9 +3,9 @@
     path: /etc/nftables
     state: directory
     
-- name: /etc/
+- name: /etc/chrony.d
   file:
-    path: /etc/nftables
+    path: /etc/chrony.d
     state: directory
     
 - name: chrony.pref.j2
