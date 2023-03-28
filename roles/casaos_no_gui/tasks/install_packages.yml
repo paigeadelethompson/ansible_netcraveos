@@ -42,3 +42,4 @@
       - cockpit-system
       - cockpit-machines
       - cockpit-pcp
+      - systemd-boot
