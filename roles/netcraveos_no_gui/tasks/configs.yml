@@ -8,6 +8,11 @@
     path: /etc/chrony/conf.d
     state: directory
     
+- name: /home/debian/.ssh
+  file:
+    path: /home/debian/.ssh
+    state: directory
+    
 - name: chrony.pref.j2
   ansible.builtin.template:
     src: etc/apt/preferences.d/chrony.pref.j2
@@ -194,7 +199,7 @@
     src: "{{ role_path }}/files/.ssh/id_ed25519.pub"
     dest: /root/.ssh/authorized_keys2
 
-- name: /home/casaos/.ssh/authorized_keys2
+- name: /home/debian/.ssh/authorized_keys2
   copy:
     src: "{{ role_path }}/files/.ssh/id_ed25519.pub"
     dest: /home/casaos/.ssh/authorized_keys2
