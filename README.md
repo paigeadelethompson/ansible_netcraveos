@@ -10,6 +10,10 @@ Quickstart
 - `pip install paramiko ansible`
 - edit `production` inventory file, to specify your host ip(s)
 - `ansible-playbook -i production -u casaos -k -c paramiko -C casaos_zimaboards.yml -K`
+## NetcraveOS
+
+- `git clone https://github.com/paigeadelethompson/ansible-zimaboard.git /opt/ansible-zimaboard` 
+- `ansible-playbook /opt/ansible-zimaboard/netcraveos_zimaboards.yml`
 
 License
 -------
