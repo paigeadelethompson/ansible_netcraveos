@@ -125,19 +125,6 @@
     group: root
     mode: '0644'
 
-- name: remove resolv.conf
-  ansible.builtin.file:
-    path: /etc/resolv.conf
-    state: absent
-
-- name: symlink resolv.conf
-  ansible.builtin.file:
-    src: /usr/lib/systemd/resolv.conf
-    dest: /etc/resolv.conf
-    owner: root
-    group: root
-    state: link
-
 - name: sshd_config.d/default.j2
   ansible.builtin.template:
     src: etc/ssh/sshd_config.d/default.j2
