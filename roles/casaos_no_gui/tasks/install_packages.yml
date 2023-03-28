@@ -26,3 +26,15 @@
       - docker-compose
       - cockpit
       - cockpit-podman
+      - ima-evm-utils
+      - build-essential 
+      - linux-source 
+      - bc 
+      - kmod 
+      - cpio 
+      - flex 
+      - libncurses5-dev 
+      - libelf-dev 
+      - libssl-dev 
+      - dwarves 
+      - bison
