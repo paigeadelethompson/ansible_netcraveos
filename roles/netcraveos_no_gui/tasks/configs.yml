@@ -1,0 +1,210 @@
+- name: chrony.pref.j2
+  ansible.builtin.template:
+    src: etc/apt/preferences.d/chrony.pref.j2
+    dest: /etc/apt/preferences.d/chrony.pref
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: nftables.pref.j2
+  ansible.builtin.template:
+    src: etc/apt/preferences.d/nftables.pref.j2
+    dest: /etc/apt/preferences.d/nftables.pref
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: stable.list.j2
+  ansible.builtin.template:
+    src: etc/apt/sources.list.d/stable.list.j2
+    dest: /etc/apt/sources.list.d/stable.list.j2
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: testing.list.j2
+  ansible.builtin.template:
+    src: etc/apt/sources.list.d/testing.list.j2
+    dest: /etc/apt/sources.list.d/testing.list
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 10-bond1.netdev.j2
+  ansible.builtin.template:
+    src: etc/systemd/network/10-bond1.netdev.j2
+    dest:  /etc/systemd/network/10-bond1.netdev
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 20-bond1.2345.netdev.j2
+  ansible.builtin.template:
+    src: etc/systemd/network/20-bond1.2345.netdev.j2
+    dest: /etc/systemd/network/20-bond1.2345.netdev
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 20-bond1.3210.netdev.j2
+  ansible.builtin.template:
+    src: etc/systemd/network/20-bond1.3210.netdev.j2
+    dest: /etc/systemd/network/20-bond1.3210.netdev
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 20-bond1.network.j2
+  ansible.builtin.template:
+    src: etc/systemd/network/20-bond1.network.j2
+    dest: /etc/systemd/network/20-bond1.network
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 25-bond1.2345.network.j2
+  ansible.builtin.template:
+    src: etc/systemd/network/25-bond1.2345.network.j2
+    dest: /etc/systemd/network/25-bond1.2345.network
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 25-bond1.3210.network.j2
+  ansible.builtin.template:
+    src: etc/systemd/network/25-bond1.3210.network.j2
+    dest: /etc/systemd/network/25-bond1.3210.network
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 30-enp2s0.network.j2
+  ansible.builtin.template:
+    src: etc/systemd/network/30-enp2s0.network.j2
+    dest: /etc/systemd/network/30-enp2s0.network
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 30-enp3s0.network.j2
+  ansible.builtin.template:
+    src: etc/systemd/network/30-enp3s0.network.j2
+    dest: /etc/systemd/network/30-enp3s0.network
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: vrf-2345.netdev.j2
+  ansible.builtin.template:
+    src: etc/systemd/network/vrf-2345.netdev.j2
+    dest: /etc/systemd/network/vrf-2345.netdev
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: vrf-3210.netdev.j2
+  ansible.builtin.template:
+    src: etc/systemd/network/vrf-3210.netdev.j2
+    dest: /etc/systemd/network/vrf-3210.netdev
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: remove resolv.conf
+  ansible.builtin.file:
+    path: /etc/resolv.conf
+    state: absent
+
+- name: symlink resolv.conf
+  ansible.builtin.file:
+    src: /usr/lib/systemd/resolv.conf
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    state: link
+
+- name: sshd_config.d/default.j2
+  ansible.builtin.template:
+    src: etc/ssh/sshd_config.d/default.j2
+    dest:  /etc/ssh/sshd_config.d/default
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: nftables.conf.j2
+  ansible.builtin.template:
+    src: etc/nftables.conf.j2
+    dest:  /etc/nftables.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: nftables.nft.j2
+  ansible.builtin.template:
+    src: etc/nftables/nftables.nft.j2
+    dest:  /etc/nftables/nftables.nft
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: chrony/conf.d/default.conf.j2
+  ansible.builtin.template:
+    src: etc/chrony/conf.d/default.conf.j2
+    dest:  /etc/chrony/conf.d/default.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: issue.j2
+  ansible.builtin.template:
+    src: etc/issue.j2
+    dest:  /etc/issue.j2
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: netcrave-docker.service.j2
+  ansible.builtin.template:
+    src: etc/systemd/system/netcrave-docker.service.j2
+    dest:  /etc/systemd/system/netcrave-docker.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: netcrave-docker.service.j2
+  ansible.builtin.template:
+    src: etc/systemd/system/netcrave-docker.service.j2
+    dest:  /etc/systemd/system/netcrave-docker.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: /root/.ssh/authorized_keys2
+  copy:
+    src: "{{ role_path }}/files/.ssh/id_ed25519.pub"
+    dest: /root/.ssh/authorized_keys2
+
+- name: /home/casaos/.ssh/authorized_keys2
+  copy:
+    src: "{{ role_path }}/files/.ssh/id_ed25519.pub"
+    dest: /home/casaos/.ssh/authorized_keys2
+
+- name: spacemacs root
+  ansible.builtin.git:
+    repo: https://github.com/syl20bnr/spacemacs
+    dest: /root/.emacs.d
+
+- name: spacemacs casaos
+  ansible.builtin.git:
+    repo: https://github.com/syl20bnr/spacemacs
+    dest: /home/casaos/.emacs.d
+
+- name: oh-my-zsh root
+  ansible.builtin.git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: /root/.oh-my-zsh
+
+- name: oh-my-zsh casaos
+  ansible.builtin.git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: /home/casaos/.oh-my-zsh

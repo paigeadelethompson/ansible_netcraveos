@@ -1,0 +1,9 @@
+- name: Configs
+  ansible.builtin.include_tasks:
+    file: configs.yml
+- name: Install Packages
+  ansible.builtin.include_tasks:
+    file: install_packages.yml
+- name: Start Or Restart Services
+  ansible.builtin.include_tasks:
+    file: start_restart_services.yml

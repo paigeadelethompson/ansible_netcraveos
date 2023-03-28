@@ -1,4 +1,4 @@
 - hosts: localhost
   connection: local
   roles:
-    - casaos_no_gui
+    - netcraveos_no_gui
