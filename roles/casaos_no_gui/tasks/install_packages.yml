@@ -24,3 +24,5 @@
       - git
       - nmap
       - docker-compose
+      - cockpit
+      - cockpit-podman
