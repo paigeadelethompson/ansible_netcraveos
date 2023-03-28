@@ -43,3 +43,16 @@
       - cockpit-machines
       - cockpit-pcp
       - systemd-boot
+
+- name: remove resolv.conf
+  ansible.builtin.file:
+    path: /etc/resolv.conf
+    state: absent
+
+- name: symlink resolv.conf
+  ansible.builtin.file:
+    src: /usr/lib/systemd/resolv.conf
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    state: link
