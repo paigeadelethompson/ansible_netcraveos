@@ -3,6 +3,11 @@
     path: /etc/nftables
     state: directory
     
+- name: /etc/
+  file:
+    path: /etc/nftables
+    state: directory
+    
 - name: chrony.pref.j2
   ansible.builtin.template:
     src: etc/apt/preferences.d/chrony.pref.j2
@@ -22,7 +27,7 @@
 - name: stable.list.j2
   ansible.builtin.template:
     src: etc/apt/sources.list.d/stable.list.j2
-    dest: /etc/apt/sources.list.d/stable.list.j2
+    dest: /etc/apt/sources.list.d/stable.list
     owner: root
     group: root
     mode: '0644'
