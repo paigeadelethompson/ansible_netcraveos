@@ -197,7 +197,7 @@
 - name: /home/debian/.ssh/authorized_keys2
   copy:
     src: "{{ role_path }}/files/.ssh/id_ed25519.pub"
-    dest: /home/casaos/.ssh/authorized_keys2
+    dest: /home/debian/.ssh/authorized_keys2
 
 - name: spacemacs debian user
   ansible.builtin.git:
