@@ -12,6 +12,14 @@
   file:
     path: /home/debian/.ssh
     state: directory
+
+- name: cockpit.pref.j2
+  ansible.builtin.template:
+    src: etc/apt/preferences.d/cockpit.pref.j2
+    dest: /etc/apt/preferences.d/cockpit.pref
+    owner: root
+    group: root
+    mode: '0644'
     
 - name: chrony.pref.j2
   ansible.builtin.template:
