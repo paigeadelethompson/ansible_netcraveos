@@ -1,5 +1,0 @@
-- name: Stop docker
-  ansible.builtin.systemd:
-    name: cron
-    state: stopped
-    enabled: false

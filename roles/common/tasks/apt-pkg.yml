@@ -1,0 +1,77 @@
+- name: base packages
+  apt:
+    pkg:
+      - auditd
+      - chrony
+      - screen
+      - tree
+      - nftables
+      - iftop
+      - zsh
+      - tcpdump
+      - netsniff-ng
+      - net-tools
+      - mtr
+      - sudo
+      - emacs
+      - netcat
+      - socat
+      - htop
+      - dnsutils
+      - curl
+      - wget
+      - ncftp
+      - parallel
+      - jq
+      - python3-pip
+      - git
+      - nmap
+      - ima-evm-utils
+      - build-essential
+      - linux-source
+      - bc
+      - kmod
+      - cpio
+      - flex
+      - libncurses5-dev
+      - libelf-dev
+      - libssl-dev
+      - dwarves
+      - bison
+      - gh
+  tags:
+    - desktop
+    - server
+
+- name: desktop packages
+  apt:
+    pkg:
+      - task-gnome-desktop
+      - task-xfce-desktop
+      - task-kde-desktop
+      - task-lxde-desktop
+      - task-cinnamon-desktop
+      - task-mate-desktop
+      - task-lxqt-desktop
+      - wireshark
+      - kde-full
+      - kdenlive
+      - openshot
+      - minidlna
+      - ffmpeg
+      - vlc
+      - weechat
+      - irssi
+      - tmux
+      - inkscape
+      - blender
+  tags:
+    - desktop
+
+- name: docker packages
+  apt:
+    pkg:
+      - docker.io
+      - docker-compose
+  tags:
+    - docker

@@ -1,5 +1,0 @@
-- hosts: casaos_zimaboard_hosts
-  remote_user: casaos
-  become: yes
-  roles:
-    - casaos_no_gui

@@ -1,4 +1,0 @@
-- hosts: localhost
-  connection: local
-  roles:
-    - netcraveos_no_gui

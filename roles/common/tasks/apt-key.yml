@@ -1,0 +1,388 @@
+- name: apt dependencies
+  apt:
+    pkg:
+      - gnupg
+      - apt-transport-https
+      - dirmngr
+  tags:
+    - apt-repos-keys-all
+
+- name: wine key
+  ansible.builtin.get_url:
+    url: https://dl.winehq.org/wine-builds/winehq.key
+    dest: /tmp/wine.key
+  tags:
+    - apt-repos-keys-all
+
+- name: wine import key
+  ansible.builtin.apt_key:
+    file: /tmp/wine.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: github key
+  ansible.builtin.get_url:
+    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    dest: /tmp/gh.key
+  tags:
+    - apt-repos-keys-all
+
+- name: github import key
+  ansible.builtin.apt_key:
+    file: /tmp/gh.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: mega key
+  ansible.builtin.get_url:
+    url: https://mega.nz/keys/MEGA_signing.key
+    dest: /tmp/mega.key
+  tags:
+    - apt-repos-keys-all
+
+- name: mega import key
+  ansible.builtin.apt_key:
+    file: /tmp/mega.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: atom key
+  ansible.builtin.get_url:
+    url: https://packagecloud.io/AtomEditor/atom/gpgkey
+    dest: /tmp/atom.key
+  tags:
+    - apt-repos-keys-all
+
+- name: atom import key
+  ansible.builtin.apt_key:
+    file: /tmp/atom.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: benno key
+  ansible.builtin.get_url:
+    url: https://www.benno-mailarchiv.de/download/debian/benno.asc
+    dest: /tmp/benno.key
+  tags:
+    - apt-repos-keys-all
+
+- name: benno import key
+  ansible.builtin.apt_key:
+    file: /tmp/benno.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: bird key
+  ansible.builtin.get_url:
+    url: https://bird.network.cz/debian/apt.key
+    dest: /tmp/bird.key
+  tags:
+    - apt-repos-keys-all
+
+- name: bird import key
+  ansible.builtin.apt_key:
+    file: /tmp/bird.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: docker key
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/debian/gpg
+    dest: /tmp/docker.key
+  tags:
+    - apt-repos-keys-all
+
+- name: docker import key
+  ansible.builtin.apt_key:
+    file: /tmp/docker.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: dovecot key
+  ansible.builtin.get_url:
+    url: https://repo.dovecot.org/DOVECOT-REPO-GPG
+    dest: /tmp/dovecot.key
+  tags:
+    - apt-repos-keys-all
+
+- name: dovecot import key
+  ansible.builtin.apt_key:
+    file: /tmp/dovecot.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: google key
+  ansible.builtin.get_url:
+    url: https://dl.google.com/linux/linux_signing_key.pub
+    dest: /tmp/google.key
+  tags:
+    - apt-repos-keys-all
+
+- name: google import key
+  ansible.builtin.apt_key:
+    file: /tmp/google.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: jabber key
+  ansible.builtin.get_url:
+    url: https://apt.jabber.at/gpg-key
+    dest: /tmp/jabber.key
+  tags:
+    - apt-repos-keys-all
+
+- name: jabber import key
+  ansible.builtin.apt_key:
+    file: /tmp/jabber.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: liveconfig key
+  ansible.builtin.get_url:
+    url: https://www.liveconfig.com/liveconfig.key
+    dest: /tmp/liveconfig.key
+  tags:
+    - apt-repos-keys-all
+
+- name: liveconfig import key
+  ansible.builtin.apt_key:
+    file: /tmp/liveconfig.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: llvm key
+  ansible.builtin.get_url:
+    url: https://apt.llvm.org/llvm-snapshot.gpg.key
+    dest: /tmp/llvm.key
+  tags:
+    - apt-repos-keys-all
+
+- name: llvm import key
+  ansible.builtin.apt_key:
+    file: /tmp/llvm.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: lynis key
+  ansible.builtin.apt_key:
+    keyserver: hkps://keyserver.ubuntu.com
+    id: 013baa07180c50a7101097ef9de922f1c2fde6c4
+  tags:
+    - apt-repos-keys-all
+
+- name: lynis key
+  ansible.builtin.apt_key:
+    keyserver: hkps://pgp.mit.edu
+    id: 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
+  tags:
+    - apt-repos-keys-all
+
+- name: nextcloud key
+  ansible.builtin.get_url:
+    url: http://download.opensuse.org/repositories/home:/ivaradi/Debian_9.0/Release.key
+    dest: /tmp/nextcloud.key
+  tags:
+    - apt-repos-keys-all
+
+- name: nextcloud import key
+  ansible.builtin.apt_key:
+    file: /tmp/nextcloud.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: nginx key
+  ansible.builtin.get_url:
+    url: https://nginx.org/keys/nginx_signing.key
+    dest: /tmp/nginx.key
+  tags:
+    - apt-repos-keys-all
+
+- name: nginx import key
+  ansible.builtin.apt_key:
+    file: /tmp/nginx.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: nodejs key
+  ansible.builtin.get_url:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    dest: /tmp/nodejs.key
+  tags:
+    - apt-repos-keys-all
+
+- name: nodejs key
+  ansible.builtin.apt_key:
+    file: /tmp/nodejs.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: opera key
+  ansible.builtin.get_url:
+    url: https://deb.opera.com/archive.key
+    dest: /tmp/opera.key
+  tags:
+    - apt-repos-keys-all
+
+- name: opera import key
+  ansible.builtin.apt_key:
+    file: /tmp/opera.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: php key
+  ansible.builtin.get_url:
+    url: https://packages.sury.org/php/apt.gpg
+    dest: /tmp/php.key
+  tags:
+    - apt-repos-keys-all
+
+- name: php import key
+  ansible.builtin.apt_key:
+    file: /tmp/php.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: postgresql key
+  ansible.builtin.get_url:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    dest: /tmp/postgresql.key
+  tags:
+    - apt-repos-keys-all
+
+- name: postgresql import key
+  ansible.builtin.apt_key:
+    file: /tmp/postgresql.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: prosody key
+  ansible.builtin.get_url:
+    url: https://prosody.im/files/prosody-debian-packages.key
+    dest: /tmp/prosody.key
+  tags:
+    - apt-repos-keys-all
+
+- name: prosody import key
+  ansible.builtin.apt_key:
+    file: /tmp/prosody.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: signal key
+  ansible.builtin.get_url:
+    url: https://updates.signal.org/desktop/apt/keys.asc
+    dest: /tmp/signal.key
+  tags:
+    - apt-repos-keys-all
+
+- name: signal import key
+  ansible.builtin.apt_key:
+    file: /tmp/signal.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: sublime key
+  ansible.builtin.get_url:
+    url: https://download.sublimetext.com/sublimehq-pub.gpg
+    dest: /tmp/sublime.key
+  tags:
+    - apt-repos-keys-all
+
+- name: sublime import key
+  ansible.builtin.apt_key:
+    file: /tmp/sublime.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: teamviewer key
+  ansible.builtin.get_url:
+    url: https://download.teamviewer.com/download/linux/signature/TeamViewer2017.asc
+    dest: /tmp/teamviewer.key
+  tags:
+    - apt-repos-keys-all
+
+- name: teamviewer import key
+  ansible.builtin.apt_key:
+    file: /tmp/teamviewer.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: ubuntuzilla key
+  ansible.builtin.apt_key:
+    keyserver: hkps://keyserver.ubuntu.com
+    id: 2667CA5C
+  tags:
+    - apt-repos-keys-all
+
+- name: oracle-2016 key
+  ansible.builtin.get_url:
+    url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+    dest: /tmp/oracle-2016.key
+  tags:
+    - apt-repos-keys-all
+
+- name: oracle-2016 import key
+  ansible.builtin.apt_key:
+    file: /tmp/oracle-2016.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: oracle key
+  ansible.builtin.get_url:
+    url: https://www.virtualbox.org/download/oracle_vbox.asc
+    dest: /tmp/oracle.key
+  tags:
+    - apt-repos-keys-all
+
+- name: oracle import key
+  ansible.builtin.apt_key:
+    file: /tmp/oracle.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: microsoft key
+  ansible.builtin.get_url:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    dest: /tmp/microsoft.key
+  tags:
+    - apt-repos-keys-all
+
+- name: microsoft import key
+  ansible.builtin.apt_key:
+    file: /tmp/microsoft.key
+    state: present
+  tags:
+    - apt-repos-keys-all
+
+- name: java
+  ansible.builtin.apt_key:
+    keyserver: hkps://keyserver.ubuntu.com
+    id: EA8CACC073C3DB2A
+  tags:
+    - apt-repos-keys-all
+
+

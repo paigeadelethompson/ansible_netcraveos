@@ -1,0 +1,242 @@
+- name: debian stable
+  ansible.builtin.apt_repository:
+    repo: deb http://deb.debian.org/debian/ stable main contrib non-free
+    state: present
+    filename: stable
+  tags:
+    - apt-repos-all
+
+- name: debian stable src
+  ansible.builtin.apt_repository:
+    repo: deb-src http://deb.debian.org/debian/ stable main contrib non-free
+    state: present
+    filename: stable-src
+  tags:
+    - apt-repos-all
+
+- name: debian stable security
+  ansible.builtin.apt_repository:
+    repo: deb http://deb.debian.org/debian-security/ stable-security main non-free
+    state: present
+    filename: stable-security
+  tags:
+    - apt-repos-all
+
+- name: debian testing
+  ansible.builtin.apt_repository:
+    repo: deb http://deb.debian.org/debian/ testing main contrib non-free 
+    state: present
+    filename: testing
+  tags:
+    - apt-repos-all
+
+- name: debian testing src
+  ansible.builtin.apt_repository:
+    repo: deb-src http://deb.debian.org/debian/ testing main contrib non-free 
+    state: present
+    filename: testing-src
+  tags:
+    - apt-repos-all
+
+- name: debian testing security
+  ansible.builtin.apt_repository:
+    repo: deb http://deb.debian.org/debian-security/ testing-security main non-free
+    state: present
+    filename: testing-security
+  tags:
+    - apt-repos-all
+
+- name: debian unstable
+  ansible.builtin.apt_repository:
+    repo: deb http://deb.debian.org/debian/ unstable main contrib non-free 
+    state: present
+    filename: unstable
+  tags:
+    - apt-repos-all
+
+- name: debian unstable src
+  ansible.builtin.apt_repository:
+    repo: deb-src http://deb.debian.org/debian/ unstable main contrib non-free 
+    state: present
+    filename: unstable-src
+  tags:
+    - apt-repos-all
+
+- name: wine
+  ansible.builtin.apt_repository:
+    repo: deb https://dl.winehq.org/wine-builds/debian bullseye main
+    state: present
+    filename: wine
+  tags:
+    - apt-repos-all
+
+- name: wine testing
+  ansible.builtin.apt_repository:
+    repo: deb https://dl.winehq.org/wine-builds/debian bookworm main
+    state: present
+    filename: wine-testing
+  tags:
+    - apt-repos-all
+
+- name: github
+  ansible.builtin.apt_repository:
+    repo: deb https://cli.github.com/packages stable main
+    state: present
+    filename: github
+  tags:
+    - apt-repos-all
+
+- name: atom
+  ansible.builtin.apt_repository:
+    repo: deb https://packagecloud.io/AtomEditor/atom/any/ any main
+    state: present
+    filename: atom
+  tags:
+    - apt-repos-all
+
+- name: benno
+  ansible.builtin.apt_repository:
+    repo: deb https://www.benno-mailarchiv.de/download/debian /
+    state: present
+    filename: benno
+  tags:
+    - apt-repos-all
+
+- name: bird
+  ansible.builtin.apt_repository:
+    repo: deb https://bird.network.cz/debian/ stretch main
+    state: present
+    filename: bird
+  tags:
+    - apt-repos-all
+
+- name: docker
+  ansible.builtin.apt_repository:
+    repo: deb https://download.docker.com/linux/debian buster stable
+    state: present
+    filename: docker
+  tags:
+    - apt-repos-all
+
+- name: dovecot
+  ansible.builtin.apt_repository:
+    repo: deb https://repo.dovecot.org/ce-2.3-latest/debian/buster buster main
+    state: present
+    filename: dovecot
+  tags:
+    - apt-repos-all
+
+- name: dropbox
+  ansible.builtin.apt_repository:
+    repo: deb https://linux.dropbox.com/debian buster main
+    state: present
+    filename: dropbox
+  tags:
+    - apt-repos-all
+
+- name: google chrome
+  ansible.builtin.apt_repository:
+    repo: deb https://dl.google.com/linux/chrome/deb/ stable main
+    state: present
+    filename: google-chrome
+  tags:
+    - apt-repos-all
+
+- name: google earth 
+  ansible.builtin.apt_repository:
+    repo: deb https://dl.google.com/linux/earth/deb/ stable main
+    state: present
+    filename: google-earth
+  tags:
+    - apt-repos-all
+
+- name: liveconfig
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://repo.liveconfig.com/debian/ main main
+    state: present
+    filename: liveconfig
+  tags:
+    - apt-repos-all
+
+- name: llvm
+  ansible.builtin.apt_repository:
+    repo: deb http://apt.llvm.org/buster/ llvm-toolchain-buster main
+    state: present
+    filename: llvm
+  tags:
+    - apt-repos-all
+
+- name: llvm src
+  ansible.builtin.apt_repository:
+    repo: deb http://apt.llvm.org/buster/ llvm-toolchain-buster main
+    state: present
+    filename: llvm-sr
+  tags:
+    - apt-repos-allc
+
+- name: lynis
+  ansible.builtin.apt_repository:
+    repo: deb https://packages.cisofy.com/community/lynis/deb/ stable main
+    state: present
+    filename: lynis
+  tags:
+    - apt-repos-all
+
+- name: mega sync client
+  ansible.builtin.apt_repository:
+    repo: deb https://mega.nz/linux/MEGAsync/Debian_10.0/ ./
+    state: present
+    filename: mega
+  tags:
+    - apt-repos-all
+
+- name: nginx
+  ansible.builtin.apt_repository:
+    repo: deb https://nginx.org/packages/debian/ buster nginx
+    state: present
+    filename: nginx
+  tags:
+    - apt-repos-all
+
+- name: nginx src
+  ansible.builtin.apt_repository:
+    repo: deb-src https://nginx.org/packages/debian/ buster nginx
+    state: present
+    filename: nginx-src
+  tags:
+    - apt-repos-all
+
+- name: nodejs
+  ansible.builtin.apt_repository:
+    repo: deb https://deb.nodesource.com/node_12.x buster main
+    state: present
+    filename: nodejs
+  tags:
+    - apt-repos-all
+
+- name: nodejs src
+  ansible.builtin.apt_repository:
+    repo: deb-src https://deb.nodesource.com/node_12.x buster main
+    state: present
+    filename: nodejs-src
+  tags:
+    - apt-repos-all
+
+- name: opera
+  ansible.builtin.apt_repository:
+    repo: deb https://deb.opera.com/opera-stable/ stable non-free
+    state: present
+    filename: opera
+  tags:
+    - apt-repos-all
+
+- name: java
+  ansible.builtin.apt_repository:
+    repo: deb https://ppa.launchpadcontent.net/linuxuprising/java/ubuntu jammy main
+    state: present
+    filename: java
+  tags:
+    - apt-repos-all
+
+
+

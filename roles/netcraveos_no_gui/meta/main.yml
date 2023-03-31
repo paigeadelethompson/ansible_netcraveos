@@ -1,9 +1,0 @@
-galaxy_info:
-  author: Paige Thompson
-  description: Hardened CasaOS with no GUI for Zimaboard
-  company: Netcrave Communications
-  issue_tracker_url: http://github.com/paigeadelethompson/ansible-zimaboard/issues
-  license: license (MIT)
-  min_ansible_version: 2.1
-  galaxy_tags: [Zimaboard, CasaOS, Security, Hardened Docker]
-dependencies: []

@@ -1,0 +1,15 @@
+- name: apt keys
+  ansible.builtin.import_tasks:
+    file: apt-key.yml
+
+- name: apt repositories
+  ansible.builtin.import_tasks:
+    file: apt.yml
+
+- name: apt preferences
+  ansible.builtin.import_tasks:
+    file: apt-pref.yml
+
+- name: apt packages
+  ansible.builtin.import_tasks:
+    file: apt-pkg.yml

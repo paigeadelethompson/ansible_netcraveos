@@ -1,20 +1,7 @@
-The world's first most hackable single-board server should also be the most secure; ansible-zimaboard makes easy work of that. 
-
-About Zimaboard: https://www.zimaboard.com
-
-CasaOS: https://www.casaos.io
-
 Quickstart
 ------------
-
-- `pip install paramiko ansible`
-- edit `production` inventory file, to specify your host ip(s)
-- `ansible-playbook -i production -u casaos -k -c paramiko -C casaos_zimaboards.yml -K`
-## NetcraveOS
-
-- `git clone https://github.com/paigeadelethompson/ansible-zimaboard.git /opt/ansible-zimaboard` 
-- `ansible-playbook /opt/ansible-zimaboard/netcraveos_zimaboards.yml`
-
+-  this is a WIP
+- `ansible-playbook netcraveos-desktop.yml --tags=apt-repos-all,desktop`
 License
 -------
 

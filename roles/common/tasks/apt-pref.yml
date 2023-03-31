@@ -1,0 +1,8 @@
+- name: apt preferences
+  template:
+    src: "{{ item }}"
+    dest: /etc/apt/preferences.d/{{ item | basename | regex_replace('\.j2$', '') }}
+  with_fileglob:
+    - ../templates/etc/apt/preferences.d/*.j2
+  tags: 
+    - always
